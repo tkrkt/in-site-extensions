@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "In-Site Bookmark",
+    "description": "The name of the extension."
+  },
+  "appDescription": {
+    "message": "You can manage link colleaction for each site.",
+    "description": "The description of the extension."
+  },
+  "btnTooltip": {
+    "message": "In-Site Bookmark",
+    "description": "Tooltip for the button."
+  }
+}

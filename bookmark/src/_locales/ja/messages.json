@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "In-Site Bookmark",
+    "description": "The name of the extension."
+  },
+  "appDescription": {
+    "message": "サイトごとにサイト内のブックマークを管理します。",
+    "description": "The description of the extension."
+  },
+  "btnTooltip": {
+    "message": "In-Site Bookmark",
+    "description": "Tooltip for the button."
+  }
+}
