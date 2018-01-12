@@ -23,7 +23,7 @@ var manifestOptions = {
   firefox: {
     "applications": {
       "gecko": {
-        "id": "my-app-id@mozilla.org"
+        "id": "in-site-bookmark@tkrkt.com"
       }
     }
   }

@@ -18,6 +18,6 @@ const store = createStore<Store>(rootReducer,
 saga.run(mySaga);
 
 wrapStore(store, {
-  portName: 'extension-demo-app'
+  portName: 'in-site-bookmark'
 });
 store.dispatch(initialize({}));

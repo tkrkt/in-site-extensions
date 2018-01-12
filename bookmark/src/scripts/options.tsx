@@ -9,8 +9,8 @@ import OptionContainer from './containers/option';
 
 const extension: string = '/* @echo extension */';
 const proxyStore = new Store({
-  portName: 'extension-demo-app',
-  extensionId: extension === 'firefox' ? 'my-app-id@mozilla.org' : ''
+  portName: 'in-site-bookmark',
+  extensionId: extension === 'firefox' ? 'in-site-bookmark@tkrkt.com' : ''
 });
 
 proxyStore.ready().then(() => {
