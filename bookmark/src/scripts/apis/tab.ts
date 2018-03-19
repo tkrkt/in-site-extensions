@@ -1,6 +1,7 @@
 import * as throttle from 'lodash.throttle';
 import ext from './ext';
 import {Host, Bookmark, Page} from '../reducers';
+import {getHostName, getPath} from '../utils/url';
 
 const getCurrentTab = (): Promise<chrome.tabs.Tab> => {
   return new Promise((resolve, reject) => {
@@ -36,18 +37,17 @@ const watchTabChange = (handler: () => void): () => void => {
 export const getCurrentPage = (): Promise<Page> => {
   return getCurrentTab().then((tab) => {
     if (tab.url && tab.title && typeof tab.id === 'number') {
-      const url = new URL(tab.url);
       return {
         result: {
           host: {
-            url: url.host,
+            url: getHostName(tab.url),
             favicon: tab.favIconUrl || '',
             bookmarks: []
           },
           bookmark: {
             title: tab.title || 'Error',
             url: tab.url || 'Error',
-            path: url.pathname + url.search + url.hash
+            path: getPath(tab.url)
           },
           tabId: tab.id
         }
