@@ -21,8 +21,15 @@ const BookmarkItem = ({
   onSelect,
   onRemove
 }: Props) => {
-  const onSelectHandler = () => {
-    onSelect({host, bookmark, openInNew: false});
+  const onSelectHandler = (e: any) => {
+    if (e.button !== 1) {
+      onSelect({host, bookmark, openInNew: false});
+    }
+  };
+  const onMiddleClickHandler = (e: any) => {
+    if (e.button === 1) {
+      onSelect({host, bookmark, openInNew: true});
+    }
   };
   const onRemoveHandler = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -39,7 +46,8 @@ const BookmarkItem = ({
   return (
     <li
       className={isCurrent ? 'bookmark bookmark_current' : 'bookmark'}
-      onClick={onSelectHandler}>
+      onClick={onSelectHandler}
+      onMouseUp={onMiddleClickHandler}>
       <div className="bookmark__title">{bookmark.title}</div>
       <div className="bookmark__path" title={url}>{path}</div>
       <div className="bookmark__control">
