@@ -1,0 +1,118 @@
+@import "modules/reset";
+@import "modules/variables";
+@import "modules/layout";
+
+body, html {
+  padding: 0;
+  margin: 0;
+  background-color: #eee;
+}
+
+body {
+  min-width: 400px;
+  max-width: 420px;
+  overflow-x: hidden;
+}
+
+.popup__content_no-content {
+  text-align: center;
+  line-height: 45px;
+  height: 45px;
+}
+
+.header {
+  height: 36px;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #00BCD4;
+}
+
+.header__favicon {
+  display: inline-block;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.button-removeall {
+  vertical-align: middle;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.hostname {
+  font-size: 12px;
+  flex-grow: 1;
+}
+
+.history-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.history {
+  position: relative;
+  padding: 4px 6px;
+  background-color: #fff;
+  list-style: none;
+  margin-top: 1px;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+
+  &:first-child {
+    margin-top: 0;
+  }
+  &:nth-child(2n) {
+    background-color: #f8f8f8;
+  }
+  &:hover {
+    background-color: #E0F7FA;
+  }
+}
+
+.history_current {
+  color: #00838F;
+}
+
+.history__title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.history__path {
+  font-size: 10px;
+  color: #777;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history__control {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+.history__button {
+  display: none;
+  height: 100%;
+  width: 50px;
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.history:hover .history__button {
+  display: inline-block;
+}
+
+.history__button_delete:hover {
+  background-color: rgba(255, 0, 0, 0.3);
+}
+
+.history__button_open-in-new:hover {
+  background-color: rgba(0, 200, 255, 0.3);
+}
