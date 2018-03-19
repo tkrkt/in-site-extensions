@@ -14,9 +14,7 @@
   },
   "permissions": [
     "tabs",
-    "storage",
-    "http://*/*",
-    "https://*/*"
+    "storage"
   ],
   "options_ui": {
     "page": "options.html"
@@ -27,7 +25,5 @@
     },
     "default_title": "In-Site Bookmark",
     "default_popup": "popup.html"
-  },
-  "web_accessible_resources": [],
-  "content_security_policy": "script-src 'self'; object-src 'self'"
+  }
 }
