@@ -2,6 +2,7 @@ import * as React from 'react';
 import {bind} from 'decko';
 import * as OpenInNewIcon from 'react-icons/lib/md/open-in-new';
 import * as DeleteIcon from 'react-icons/lib/md/delete';
+import * as moment from 'moment';
 
 import {History} from '../reducers';
 
@@ -45,8 +46,11 @@ const HistoryItem = ({
       className={isCurrent ? 'history history_current' : 'history'}
       onClick={onSelectHandler}
       onMouseUp={onMiddleClickHandler}>
-      <div className="history__title">{history.title}</div>
-      <div className="history__path" title={url}>{path}</div>
+      <div className="history__title">{history.title || 'No title'}</div>
+      <div className="history__description">
+        <div className="history__path" title={url}>{path}</div>
+        <div className="history__time">{moment(history.lastVisitTime).fromNow()}</div>
+      </div>
       <div className="history__control">
         <button
           className="history__button history__button_open-in-new"

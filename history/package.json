@@ -53,6 +53,7 @@
   "dependencies": {
     "decko": "^1.2.0",
     "lodash.throttle": "^4.1.1",
+    "moment": "^2.21.0",
     "react": "^16.2.0",
     "react-chrome-redux": "^1.4.0",
     "react-dom": "^16.2.0",

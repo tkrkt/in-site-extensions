@@ -11,7 +11,8 @@ export const getHistory = (host: string): Promise<Histories> => {
         return {
           title: node.title || '',
           url: node.url || '',
-          path: getPath(node.url)
+          path: getPath(node.url),
+          lastVisitTime: node.lastVisitTime
         };
       });
 

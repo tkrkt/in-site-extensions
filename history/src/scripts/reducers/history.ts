@@ -6,6 +6,7 @@ export interface History {
   title: string;
   url: string;
   path: string;
+  lastVisitTime?: number;
 }
 
 export interface Histories {

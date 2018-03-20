@@ -82,12 +82,22 @@ body {
   font-weight: bold;
 }
 
-.history__path {
+.history__description {
+  display: flex;
   font-size: 10px;
   color: #777;
-  overflow: hidden;
+}
+
+.history__path {
+  flex-grow: 2;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
+}
+
+.history__time {
+  white-space: nowrap;
+  margin-left: 10px;
 }
 
 .history__control {
