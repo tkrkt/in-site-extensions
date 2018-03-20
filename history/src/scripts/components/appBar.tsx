@@ -26,7 +26,7 @@ const AppBarItem = ({
           <DeleteIcon size={28} color={'#f44336'} />
         </span>
         <span className={'header__buttonitem header__buttonitem--cover'}>
-          <DeleteIcon size={28} color={'#7ed322'} />
+          <DeleteIcon size={28} color={'#6CBC13'} />
         </span>
       </button>
     );
