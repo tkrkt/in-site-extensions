@@ -11,7 +11,8 @@ import {
   openHistory,
   removeHistory,
   removeAllHistories,
-  historyLoaded
+  historyLoaded,
+  popupOpened
 } from '../actions';
 import {isValid} from '../utils/url';
 
@@ -50,6 +51,14 @@ function* getHistorySaga({payload: {page}}: {payload: {page: Page}}) {
   }
 }
 
+function* getCurrentHistorySaga() {
+  const page: Page | undefined = yield select((state: Store) => state.page);
+  if (page && page.result) {
+    const histories = yield call(historyApi.getHistory, page.result.host);
+    yield put(historyLoaded({histories}));
+  }
+}
+
 export default function* saga(): SagaIterator {
   // initialize
   yield take(initialize);
@@ -61,4 +70,5 @@ export default function* saga(): SagaIterator {
   yield takeEvery((removeHistory as any), removeHistorySaga);
   yield takeEvery((removeAllHistories as any), removeAllHistoriesSaga);
   yield takeEvery((pageChanged as any), getHistorySaga);
+  yield takeEvery((popupOpened as any), getCurrentHistorySaga);
 }

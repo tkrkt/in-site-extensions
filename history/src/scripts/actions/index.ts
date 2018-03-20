@@ -7,6 +7,7 @@ export const nop = actionCreator<{}>('NOP');
 
 export const initialize = actionCreator<{}>('INITIALIZE');
 
+export const popupOpened = actionCreator<{}>('POPUP_OPENED');
 export const historyLoaded = actionCreator<{histories: Histories}>('HISTORY_LOADED');
 
 export const openHistory = actionCreator<{history: History, openInNew: boolean}>('OPEN_HISTORY');
