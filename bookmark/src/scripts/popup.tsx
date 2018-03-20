@@ -31,7 +31,6 @@ proxyStore.ready().then(() => {
       }
       document.body.style.height = '';
       if (appElement.getBoundingClientRect().height > 600) {
-        document.body.style.overflowY = 'scroll';
         appElement.style.height = '600px';
         appElement.style.overflowY = 'hidden';
         await new Promise((r) => setTimeout(r, 100));
