@@ -25,7 +25,7 @@ body {
   padding-left: 12px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #00BCD4;
+  border-bottom: 1px solid #7ed322;
 }
 
 .header__favicon {
@@ -35,10 +35,32 @@ body {
   vertical-align: middle;
 }
 
-.button-removeall {
+.header__button {
   vertical-align: middle;
-  margin-right: 8px;
   cursor: pointer;
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+}
+
+// cannot use this in Firefox
+// .header__button path {
+//   color: #7ed322;
+//   &:hover {
+//     color: #f44336;
+//   }
+// }
+
+.header__buttonitem {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.header__button:hover .header__buttonitem--cover {
+  opacity: 0;
 }
 
 .hostname {
@@ -69,12 +91,12 @@ body {
     background-color: #f8f8f8;
   }
   &:hover {
-    background-color: #E0F7FA;
+    background-color: #eeffdb;
   }
 }
 
 .history_current {
-  color: #00838F;
+  color: #49820b;
 }
 
 .history__title {
@@ -124,5 +146,5 @@ body {
 }
 
 .history__button_open-in-new:hover {
-  background-color: rgba(0, 200, 255, 0.3);
+  background-color: rgba(60, 255, 0, 0.3);
 }

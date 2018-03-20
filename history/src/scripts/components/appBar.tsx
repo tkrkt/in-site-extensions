@@ -19,10 +19,15 @@ const AppBarItem = ({
   if (isValidUrl) {
     button = (
       <button
-        className="button-removeall"
-        title="Delete all history in this site"
+        className="header__button header__button--removeall"
+        title="Delete all histories in this site"
         onClick={onRemoveAll}>
-        <DeleteIcon size={28} color="#00BCD4" />
+        <span className={'header__buttonitem'}>
+          <DeleteIcon size={28} color={'#f44336'} />
+        </span>
+        <span className={'header__buttonitem header__buttonitem--cover'}>
+          <DeleteIcon size={28} color={'#7ed322'} />
+        </span>
       </button>
     );
   }
