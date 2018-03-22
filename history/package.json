@@ -1,6 +1,6 @@
 {
   "name": "in-site-history",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "lint": "tslint --format stylish --project ./ 'src/**/*.ts?(x)'",
     "lint:fix": "npm run lint -- --fix",
