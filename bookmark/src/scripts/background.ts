@@ -8,9 +8,17 @@ import rootReducer, {Store} from './reducers';
 import {initialize} from './actions';
 import mySaga from './sagas';
 
-const logger = createLogger();
 const saga = createSagaMiddleware();
-const middlewares = [saga, logger];
+
+const env: string = '/* @echo env */';
+let middlewares;
+if (env === 'production') {
+  middlewares = [saga];
+} else {
+  const logger = createLogger();
+  middlewares = [saga, logger];
+}
+
 const store = createStore<Store>(rootReducer,
   applyMiddleware(...middlewares)
 );
