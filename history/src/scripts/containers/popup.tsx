@@ -25,12 +25,9 @@ interface State {
   resultMessage?: string;
 }
 
-const isValidPageHistoryPair = (page: Page, histories: Histories) => {
+const isValidPageHistoryPair = (p: Page, h: Histories) => {
   return (
-    page
-    && page.result
-    && histories
-    && page.result.host === histories.host
+    p && p.result && h && p.result.host === h.host
   );
 };
 
