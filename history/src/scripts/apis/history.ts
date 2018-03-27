@@ -2,10 +2,23 @@ import ext from './ext';
 import {Histories, History} from '../reducers';
 import {getHostName, getPath} from '../utils/url';
 
-export const getHistory = (host: string): Promise<Histories> => {
+const maxResults = 100;
+
+const searchHistory = ({
+  host,
+  paths,
+  items,
+  endTime
+}: Histories): Promise<Histories> => {
   return new Promise((resolve) => {
-    ext.history.search({text: host}, (historyNodes) => {
-      const items = historyNodes.filter((node) => {
+    ext.history.search({
+      text: host,
+      startTime: 0,
+      endTime,
+      maxResults
+    }, (historyNodes) => {
+      let nextEndTime = endTime;
+      historyNodes.filter((node) => {
         return getHostName(node.url) === host;
       }).map((node) => {
         return {
@@ -14,14 +27,39 @@ export const getHistory = (host: string): Promise<Histories> => {
           path: getPath(node.url),
           lastVisitTime: node.lastVisitTime
         };
+      }).forEach((h) => {
+        if (paths[h.path]) {
+          // nop (already added)
+        } else if (h.lastVisitTime) {
+          paths[h.path] = true;
+          items.push(h);
+          nextEndTime = Math.min(nextEndTime, h.lastVisitTime);
+        }
       });
 
+      const completed = endTime === nextEndTime || !items.length;
       resolve({
         host,
-        items
+        items,
+        paths,
+        endTime: nextEndTime - 1,
+        completed
       });
     });
   });
+};
+
+export const getHistory = (host: string): Promise<Histories> => {
+  return searchHistory({
+    host,
+    paths: {},
+    items: [],
+    endTime: +new Date()
+  });
+};
+
+export const getMoreHistory = (histories: Histories): Promise<Histories> => {
+  return searchHistory(histories);
 };
 
 export const removeHistory = (history: History): Promise<void> => {

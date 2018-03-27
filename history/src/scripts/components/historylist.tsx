@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Page, Histories, History} from '../reducers';
 import HistoryItem from './history';
+import * as RefreshIcon from 'react-icons/lib/md/refresh';
 
 interface Props {
   page: Page;
@@ -29,6 +30,9 @@ const HistoryList = ({
               onRemove={onRemove} />
           );
         })}
+        {!histories.completed && (
+          <li className={'hostory-list__loader'}><RefreshIcon/></li>
+        )}
       </ul>
     );
   } else {

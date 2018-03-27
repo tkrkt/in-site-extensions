@@ -12,11 +12,16 @@ export interface History {
 export interface Histories {
   host: string;
   items: History[];
+  paths: {[key: string]: boolean};
+  endTime: number;
+  completed?: boolean;
 }
 
 const initialState = {
   host: '',
-  items: []
+  items: [],
+  endTime: +new Date(),
+  paths: {}
 };
 
 export default (state: Histories = initialState, action: Action) => {

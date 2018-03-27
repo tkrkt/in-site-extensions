@@ -1,8 +1,9 @@
 import * as React from 'react';
+import throttle from 'lodash.throttle';
 import {render} from 'react-dom';
 import {Store} from 'react-chrome-redux';
 import {Provider} from 'react-redux';
-import {popupOpened} from './actions';
+import {loadHistory} from './actions';
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -21,7 +22,7 @@ proxyStore.ready().then(() => {
     </Provider>
   ), document.getElementById('app'));
 }).then(() => {
-  proxyStore.dispatch(popupOpened({}));
+  proxyStore.dispatch(loadHistory({}));
 }).then(async () => {
   if (extension === 'chrome') {
     // dirty hack to fix drawings of popup window
