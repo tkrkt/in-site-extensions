@@ -4,7 +4,6 @@ import createSagaMiddleware from 'redux-saga';
 import {createLogger} from 'redux-logger';
 
 import rootReducer, {Store} from './reducers';
-// import aliases from './aliases';
 import {initialize} from './actions';
 import mySaga from './sagas';
 
