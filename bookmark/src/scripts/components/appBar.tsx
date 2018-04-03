@@ -23,7 +23,7 @@ const AppBarItem = ({
     if (isAlreadyAdded) {
       button = (
         <button
-          className="button-add"
+          className="header__button header__button--added"
           title="Already added">
           <DoneIcon size={28} color="#00BCD4" />
         </button>
@@ -31,7 +31,7 @@ const AppBarItem = ({
     } else {
       button = (
         <button
-          className="button-add"
+          className="header__button header__button--add"
           title="Add current page to bookmark"
           onClick={onAdd}>
           <AddIcon size={28} color="#00BCD4" />

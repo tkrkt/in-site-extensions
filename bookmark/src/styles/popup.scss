@@ -35,9 +35,12 @@ body {
   vertical-align: middle;
 }
 
-.button-add {
+.header__button {
   vertical-align: middle;
   margin-right: 8px;
+}
+
+.header__button--add {
   cursor: pointer;
 }
 
