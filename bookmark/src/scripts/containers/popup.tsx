@@ -6,6 +6,7 @@ import AppBar from '../components/AppBar';
 import BookmarkList from '../components/bookmarklist';
 import {Store, Host, Bookmark, Page} from '../reducers';
 import {addBookmark, openBookmark, removeBookmark, sortBookmark} from '../actions';
+import {isValid} from '../utils/url';
 
 // props of redux state
 interface StateProps {
@@ -36,9 +37,7 @@ const PopupContainer = (props: StateProps & DispatchProps) => {
     if (host && host.bookmarks.some(({url}) => url === currentUrl)) {
       isAlreadyAdded = true;
     }
-    if (/^http/.test(currentUrl)) {
-      isValidUrl = true;
-    }
+    isValidUrl = isValid(currentUrl);
   }
 
   let content;

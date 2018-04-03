@@ -5,6 +5,7 @@ import {Store, Hosts, Host, Bookmark, Page} from '../reducers';
 import ext from '../apis/ext';
 import * as tab from '../apis/tab';
 import * as repogitory from '../apis/repogitory';
+import generateHtml from '../utils/generateHtml';
 import {
   initialize,
   setHosts,
@@ -17,7 +18,9 @@ import {
   sortBookmark,
   sortBookmarkWorker,
   openBookmark,
-  pageChanged
+  pageChanged,
+  exportHosts,
+  importHosts
 } from '../actions';
 
 function* initializeSaga() {
@@ -111,6 +114,46 @@ function* updateBadgeSaga() {
   }
 }
 
+function* exportHostsSaga() {
+  const hosts = yield select((state: Store) => state.hosts);
+  const html = generateHtml(hosts);
+  const blob = new Blob([html], {type: 'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  ext.downloads.download({
+    url,
+    filename: 'bookmarks.html'
+  });
+}
+
+function* importHostsSaga({payload: {hosts}}: {payload: {hosts: Hosts}}) {
+  const currentHosts: Hosts = yield select((state: Store) => state.hosts);
+  const nextHosts = {...currentHosts};
+  for (const key of Object.keys(hosts)) {
+    const currentHost = currentHosts[key];
+    const loadHost = hosts[key];
+    if (currentHost) {
+      const bookmarks = currentHost.bookmarks;
+      loadHost.bookmarks.forEach((bookmark) => {
+        if (currentHost.bookmarks.some((b) => b.path === bookmark.path)) {
+          // nop (duplicated)
+        } else {
+          bookmarks.push(bookmark);
+        }
+      });
+      nextHosts[key] = {
+        url: currentHost.url || loadHost.url,
+        favicon: currentHost.favicon || loadHost.favicon,
+        bookmarks
+      };
+    } else {
+      nextHosts[key] = hosts[key];
+    }
+
+    yield call(repogitory.setHost, nextHosts[key]);
+  }
+  yield put(setHosts(nextHosts));
+}
+
 export default function* saga(): SagaIterator {
   // initialize
   yield take(initialize);
@@ -124,6 +167,8 @@ export default function* saga(): SagaIterator {
   yield takeEvery(addBookmark as any, updateBadgeSaga);
   yield takeEvery(removeBookmark as any, updateBadgeSaga);
   yield takeEvery(sortBookmark as any, sortBookmarkSaga);
+  yield takeEvery(exportHosts as any, exportHostsSaga);
+  yield takeEvery(importHosts as any, importHostsSaga);
   const channel = yield call(watchTabsChannel);
   yield takeEvery(channel, changePageSaga);
 }

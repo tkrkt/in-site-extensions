@@ -9,6 +9,10 @@ export const nop = actionCreator<{}>('NOP');
 export const initialize = actionCreator<{}>('INITIALIZE');
 export const setHosts = actionCreator<Hosts>('SET_HOSTS');
 
+export const exportHosts = actionCreator<{}>('EXPORT_HOSTS');
+export const importHosts = actionCreator<{hosts: Hosts}>('IMPORT_HOSTS');
+export const importHostsWorker = actionCreator<Action<{hosts: Hosts}>>('IMPORT_HOSTS_WORKER');
+
 export const addBookmark = actionCreator<{page: Page}>('ADD_BOOKMARK');
 export const addBookmarkWorker = actionCreator.async<Action<{page: Page}>, void, any>('ADD_BOOKMARK_WORKER');
 

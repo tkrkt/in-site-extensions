@@ -15,3 +15,7 @@ export const getPath = (url?: string | URL): string => {
   }
   return url.pathname + url.search + url.hash;
 };
+
+export const isValid = (url: string | undefined): boolean => {
+  return !!url && /^http/.test(url);
+};
