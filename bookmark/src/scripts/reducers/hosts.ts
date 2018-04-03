@@ -1,7 +1,7 @@
 import {Action} from 'redux';
 import {isType} from 'typescript-fsa';
 import {
-  initHosts,
+  setHosts,
   addBookmark,
   removeBookmark,
   sortBookmark,
@@ -28,7 +28,7 @@ const initialState: Hosts = {
 };
 
 export default (state: Hosts = initialState, action: Action) => {
-  if (isType(action, initHosts)) {
+  if (isType(action, setHosts)) {
     return {
       ...state,
       ...action.payload

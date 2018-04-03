@@ -7,10 +7,15 @@ import * as tab from '../apis/tab';
 import * as repogitory from '../apis/repogitory';
 import {
   initialize,
-  initHosts,
+  setHosts,
   addBookmark,
-  removeBookmark,
   addBookmarkWorker,
+  removeBookmark,
+  removeBookmarkWorker,
+  removeHost,
+  removeHostWorker,
+  sortBookmark,
+  sortBookmarkWorker,
   openBookmark,
   pageChanged
 } from '../actions';
@@ -18,7 +23,7 @@ import {
 function* initializeSaga() {
   yield fork(function*() {
     const hosts: Hosts = yield call(repogitory.getAllHosts);
-    yield put(initHosts(hosts));
+    yield put(setHosts(hosts));
   });
   ext.browserAction.setBadgeBackgroundColor({
     color: '#666'
@@ -26,11 +31,8 @@ function* initializeSaga() {
 }
 
 const addBookmarkSaga = bindAsyncAction(addBookmarkWorker)(
-  function*(): SagaIterator {
-    const {hosts, page}: {hosts: Hosts, page: Page} = yield select((state: Store) => ({
-      hosts: state.hosts,
-      page: state.page
-    }));
+  function*({payload: {page}}): SagaIterator {
+    const hosts: Hosts = yield select((state: Store) => state.hosts);
     const pageResult = page.result;
     if (pageResult) {
       const host = hosts[pageResult.host.url];
@@ -43,6 +45,35 @@ const addBookmarkSaga = bindAsyncAction(addBookmarkWorker)(
     } else {
       throw new Error('store.page is undefined');
     }
+  }
+);
+
+const removeBookmarkSaga = bindAsyncAction(removeBookmarkWorker)(
+  function*({payload: {host, bookmark}}): SagaIterator {
+    const bookmarks = host.bookmarks.filter((b) => b.url !== bookmark.url);
+    if (bookmarks.length) {
+      yield call(repogitory.setHost, {
+        ...host,
+        bookmarks
+      });
+    } else {
+      yield call(repogitory.removeHost, host.url);
+    }
+  }
+);
+
+const sortBookmarkSaga = bindAsyncAction(sortBookmarkWorker)(
+  function*({payload: {host, bookmarks}}): SagaIterator {
+    yield call(repogitory.setHost, {
+      ...host,
+      bookmarks
+    });
+  }
+);
+
+const removeHostSaga = bindAsyncAction(removeHostWorker)(
+  function*({payload: {host}}): SagaIterator {
+    yield call(repogitory.removeHost, host.url);
   }
 );
 
@@ -85,11 +116,14 @@ export default function* saga(): SagaIterator {
   yield take(initialize);
   yield fork(initializeSaga);
 
-  yield takeEvery(addBookmark, addBookmarkSaga);
+  yield takeEvery(addBookmark as any, addBookmarkSaga);
+  yield takeEvery(removeBookmark as any, removeBookmarkSaga);
+  yield takeEvery(removeHost as any, removeHostSaga);
   yield takeEvery(openBookmark as any, openBookmarkSaga);
   yield takeEvery(pageChanged as any, updateBadgeSaga);
   yield takeEvery(addBookmark as any, updateBadgeSaga);
   yield takeEvery(removeBookmark as any, updateBadgeSaga);
+  yield takeEvery(sortBookmark as any, sortBookmarkSaga);
   const channel = yield call(watchTabsChannel);
   yield takeEvery(channel, changePageSaga);
 }
