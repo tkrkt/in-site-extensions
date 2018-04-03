@@ -60,9 +60,37 @@ export const getCurrentPage = (): Promise<Page> => {
   });
 };
 
+const samePage = (page1: Page, page2: Page): boolean => {
+  if (!page1 || !page2 || !page1.result || !page2.result) {
+    return false;
+  }
+  const p1 = page1.result;
+  const p2 = page2.result;
+  return (
+    p1.tabId === p2.tabId
+    && p1.host.url === p2.host.url
+    && p1.host.favicon === p2.host.favicon
+  );
+};
+
 export const watchCurrentPage = (handler: (page: Page) => void): () => void => {
+  let previous: {url: string, title: string} = {url: '', title: ''};
   return watchTabChange(throttle(() => {
-    getCurrentPage().then(handler).catch(() => {
+    getCurrentPage().then((page) => {
+      if (page.result) {
+        const same = (
+          page.result.bookmark.url === previous.url
+          && page.result.bookmark.title === previous.title
+        );
+        if (!same) {
+          handler(page);
+          previous = {
+            url: page.result.bookmark.url,
+            title: page.result.bookmark.title
+          };
+        }
+      }
+    }).catch((e) => {
       // nop (maybe Developer Tools' window for popup.html)
     });
   }, 100, {
