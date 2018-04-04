@@ -74,19 +74,21 @@ const samePage = (page1: Page, page2: Page): boolean => {
 };
 
 export const watchCurrentPage = (handler: (page: Page) => void): () => void => {
-  let previous: {url: string, title: string} = {url: '', title: ''};
+  let previous: {url: string, title: string, favicon: string} = {url: '', title: '', favicon: ''};
   return watchTabChange(throttle(() => {
     getCurrentPage().then((page) => {
       if (page.result) {
         const same = (
           page.result.bookmark.url === previous.url
           && page.result.bookmark.title === previous.title
+          && page.result.host.favicon === previous.favicon
         );
         if (!same) {
           handler(page);
           previous = {
             url: page.result.bookmark.url,
-            title: page.result.bookmark.title
+            title: page.result.bookmark.title,
+            favicon: page.result.host.favicon
           };
         }
       }

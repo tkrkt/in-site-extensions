@@ -92,6 +92,16 @@ const watchTabsChannel = () => {
 };
 
 function* changePageSaga(page: Page) {
+  if (page.result) {
+    const hosts: Hosts = yield select((state: Store) => state.hosts);
+    const host = hosts[page.result.host.url];
+    if (host && !host.favicon && page.result.host.favicon) {
+      yield call(repogitory.setHost, {
+        ...host,
+        favicon: page.result.host.favicon
+      });
+    }
+  }
   yield put(pageChanged({page}));
 }
 

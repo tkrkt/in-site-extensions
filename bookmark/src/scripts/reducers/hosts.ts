@@ -5,7 +5,8 @@ import {
   addBookmark,
   removeBookmark,
   sortBookmark,
-  removeHost
+  removeHost,
+  pageChanged
 } from '../actions';
 
 export interface Bookmark {
@@ -91,6 +92,22 @@ export default (state: Hosts = initialState, action: Action) => {
     const nextState = {...state};
     delete nextState[host.url];
     return nextState;
+  }
+
+  if (isType(action, pageChanged)) {
+    const {page} = action.payload;
+    if (page.result && state[page.result.host.url]) {
+      const hostUrl = page.result.host.url;
+      return {
+        ...state,
+        [hostUrl]: {
+          ...state[hostUrl],
+          favicon: state[hostUrl].favicon || page.result.host.favicon
+        }
+      };
+    } else {
+      return state;
+    }
   }
 
   return state;
