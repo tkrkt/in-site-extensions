@@ -1,10 +1,10 @@
 import {Hosts, Bookmark} from '../reducers';
 import {isValid, getHostName, getPath} from './url';
 
-const parseA = (a: string) => {
-  const href: string = (a.match(/(href|HREF)="([^"]+)"/) || [])[2];
-  const title = (a.match(/>(.+)</) || [])[1];
-  const favicon: string = (a.match(/(icon_uri|ICON_URI)="([^"]+)"/) || [])[2] || '';
+const parseA = (aString: string) => {
+  const href: string = (aString.match(/(href|HREF)="([^"]+)"/) || [])[2];
+  const title = (aString.match(/>(.+)</) || [])[1];
+  const favicon: string = (aString.match(/(icon_uri|ICON_URI)="([^"]+)"/) || [])[2] || '';
   return {href, title, favicon};
 };
 

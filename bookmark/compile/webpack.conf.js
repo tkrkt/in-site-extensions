@@ -121,6 +121,9 @@ if (production) {
     new UglifyJsPlugin({
       uglifyOptions: {
         mangle: false,
+        compress: {
+          inline: false
+        },
         output: { ascii_only: true }
       }
     }),
