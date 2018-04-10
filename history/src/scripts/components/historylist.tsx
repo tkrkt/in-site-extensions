@@ -31,7 +31,7 @@ const HistoryList = ({
           );
         })}
         {!histories.completed && (
-          <li className={'hostory-list__loader'}><RefreshIcon/></li>
+          <li className={'hostory history--loader'}><RefreshIcon/></li>
         )}
       </ul>
     );

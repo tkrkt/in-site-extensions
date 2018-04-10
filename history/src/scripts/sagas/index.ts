@@ -13,7 +13,8 @@ import {
   removeAllHistories,
   historyLoaded,
   loadHistory,
-  loadMoreHistory
+  loadMoreHistory,
+  scrolledToBottom
 } from '../actions';
 import {isValid} from '../utils/url';
 
@@ -31,7 +32,8 @@ function* removeHistorySaga({payload: {history}}: {payload: {history: History}})
 }
 
 function* removeAllHistoriesSaga({payload: {host}}: {payload: {host: string}}) {
-  yield call(historyApi.removeAllHistories, host);
+  const histories = yield select((store: Store) => store.histories);
+  yield call(historyApi.removeAllHistories, histories);
 }
 
 const watchTabsChannel = () => {
@@ -61,9 +63,17 @@ function* getCurrentHistorySaga() {
 }
 
 function* getMoreHistorySaga() {
+  const currentHistories: Histories = yield select((state: Store) => state.histories);
+  const nextHistories = yield call(historyApi.getMoreHistory, currentHistories);
+  yield put(historyLoaded({histories: nextHistories}));
+}
+
+function* scrolledToBottomSaga() {
   const histories: Histories = yield select((state: Store) => state.histories);
-  const nextHistories = yield call(historyApi.getMoreHistory, histories);
-  yield put(historyLoaded({histories}));
+  if (!histories.completed) {
+    yield delay(100);
+    yield put(loadMoreHistory({}));
+  }
 }
 
 export default function* saga(): SagaIterator {
@@ -79,4 +89,5 @@ export default function* saga(): SagaIterator {
   yield takeEvery((pageChanged as any), getHistorySaga);
   yield takeEvery((loadHistory as any), getCurrentHistorySaga);
   yield takeEvery((loadMoreHistory as any), getMoreHistorySaga);
+  yield takeEvery((scrolledToBottom as any), scrolledToBottomSaga);
 }

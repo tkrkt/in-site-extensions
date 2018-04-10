@@ -16,3 +16,5 @@ export const removeHistory = actionCreator<{history: History}>('REMOVE_HISTORY')
 export const removeAllHistories = actionCreator<{host: string}>('REMOVE_ALL_HISTORIES');
 
 export const pageChanged = actionCreator<{page: Page}>('PAGE_CHANGED');
+
+export const scrolledToBottom = actionCreator<{}>('SCROLLED_TO_BOTTOM');

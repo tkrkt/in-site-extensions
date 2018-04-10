@@ -18,6 +18,15 @@ const searchHistory = ({
       maxResults
     }, (historyNodes) => {
       let nextEndTime = endTime;
+      historyNodes = historyNodes.filter((node) => {
+        if (node.lastVisitTime) {
+          nextEndTime = Math.min(nextEndTime, node.lastVisitTime);
+          return true;
+        } else {
+          return false;
+        }
+      });
+
       historyNodes.filter((node) => {
         return getHostName(node.url) === host;
       }).map((node) => {
@@ -28,22 +37,18 @@ const searchHistory = ({
           lastVisitTime: node.lastVisitTime
         };
       }).forEach((h) => {
-        if (paths[h.path]) {
-          // nop (already added)
-        } else if (h.lastVisitTime) {
+        if (!paths[h.path]) {
           paths[h.path] = true;
           items.push(h);
-          nextEndTime = Math.min(nextEndTime, h.lastVisitTime);
         }
       });
 
-      const completed = endTime === nextEndTime || !items.length;
       resolve({
         host,
         items,
         paths,
         endTime: nextEndTime - 1,
-        completed
+        completed: endTime === nextEndTime
       });
     });
   });
@@ -68,8 +73,6 @@ export const removeHistory = (history: History): Promise<void> => {
   });
 };
 
-export const removeAllHistories = (host: string): Promise<void[]> => {
-  return getHistory(host).then((histories) => {
-    return Promise.all(histories.items.map((h) => removeHistory(h)));
-  });
+export const removeAllHistories = (histories: Histories): Promise<void[]> => {
+  return Promise.all(histories.items.map(((h) => removeHistory(h))));
 };

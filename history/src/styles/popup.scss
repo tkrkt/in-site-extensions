@@ -95,6 +95,24 @@ body {
   }
 }
 
+@keyframes spin {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
+
+.history--loader {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    vertical-align: middle;
+    opacity: 0.3;
+    transform: scale(1.4);
+    animation: spin 1.5s linear infinite;
+  }
+}
+
 .history_current {
   color: #49820b;
 }

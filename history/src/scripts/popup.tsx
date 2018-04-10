@@ -1,9 +1,9 @@
 import * as React from 'react';
-import throttle from 'lodash.throttle';
+import * as throttle from 'lodash.throttle';
 import {render} from 'react-dom';
 import {Store} from 'react-chrome-redux';
 import {Provider} from 'react-redux';
-import {loadHistory} from './actions';
+import {loadHistory, scrolledToBottom} from './actions';
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -15,6 +15,9 @@ const proxyStore = new Store({
   extensionId: extension === 'firefox' ? 'in-site-history@tkrkt.com' : ''
 });
 
+const scrollThrottleDuration = 500;
+const scrollBottomThreshold = 10;
+
 proxyStore.ready().then(() => {
   render((
     <Provider store={proxyStore as any}>
@@ -23,6 +26,16 @@ proxyStore.ready().then(() => {
   ), document.getElementById('app'));
 }).then(() => {
   proxyStore.dispatch(loadHistory({}));
+}).then(() => {
+  // watch scroll for infini scroll
+  window.addEventListener('scroll', throttle(() => {
+    const current = window.innerHeight + window.scrollY;
+    const de = document.documentElement;
+    const bottom = Math.max(de.scrollHeight, de.offsetHeight, de.clientHeight);
+    if (bottom - current < scrollBottomThreshold) {
+      proxyStore.dispatch(scrolledToBottom({}));
+    }
+  }, scrollThrottleDuration));
 }).then(async () => {
   if (extension === 'chrome') {
     // dirty hack to fix drawings of popup window
