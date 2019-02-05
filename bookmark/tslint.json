@@ -1,27 +1,19 @@
 {
-  "extends": [
-    "tslint:recommended",
-    "tslint-react",
-    "tslint-eslint-rules"
-  ],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
-    "quotemark": [true, "single", "jsx-double"],
+    "quotemark": [true, "double", "avoid-escape"],
+    "indent": [true, "spaces"],
+    "no-eval": true,
+    "triple-equals": [true, "allow-null-check"],
+    "class-name": true,
+    "curly": true,
+    "forin": true,
+    "no-var-keyword": true,
+    "no-console": [false, "log"],
+    "prettier": true,
     "ordered-imports": false,
-    "trailing-comma": [
-      true,
-      {
-        "multiline": "never",
-        "singleline": "never"
-      }
-    ],
-    "max-line-length": [true, 150],
-    "member-access": false,
-    "member-ordering": false,
-    "interface-name": false,
-    "no-console": false,
-    "object-curly-spacing": [true, "never"],
     "object-literal-sort-keys": false,
-    "jsx-no-multiline-js": false,
-    "jsx-alignment": false
+    "interface-name": false
   }
 }
