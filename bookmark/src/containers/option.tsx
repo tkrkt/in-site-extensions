@@ -59,7 +59,7 @@ const OptionContainer = (props: StateProps & DispatchProps) => {
       importHosts({ hosts: parseHtml(text) });
     });
   };
-  const exportHtml = () => exportHosts({});
+  const exportHtml = () => exportHosts();
 
   return (
     <div className="option">

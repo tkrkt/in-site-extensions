@@ -1,11 +1,18 @@
 import * as React from "react";
+import { MdSearch as SearchIcon, MdCancel as ClearIcon } from "react-icons/md";
 
 interface SubdomainBoxProps {
   includesSubDomain: boolean;
   onSubdomainVisibillityChange: (payload: { visible: boolean }) => void;
 }
 
-type Props = SubdomainBoxProps;
+interface SearchProps {
+  query: string;
+  onChange: (payload: { query: string }) => void;
+  onClear: () => void;
+}
+
+type Props = SubdomainBoxProps & SearchProps;
 
 const SubdomainBox = ({
   includesSubDomain,
@@ -28,12 +35,43 @@ const SubdomainBox = ({
   );
 };
 
-const ToolBar = (props: Props) => {
+const SearchBox = ({ query, onChange, onClear }: SearchProps) => {
+  const handleChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange({ query: e.currentTarget.value });
+    },
+    [onChange]
+  );
+
+  const handleClear = React.useCallback(() => {
+    onClear();
+  }, [onClear]);
+
   return (
-    <div className="toolbar">
-      <SubdomainBox {...props} />
+    <div className="search">
+      <SearchIcon className="search__icon search__icon--search" size="20" />
+      <input
+        className="search__input"
+        placeholder="Find..."
+        value={query}
+        onChange={handleChange}
+      />
+      <ClearIcon
+        className="search__icon search__icon--clear"
+        size="20"
+        onClick={handleClear}
+      />
     </div>
   );
 };
 
-export default ToolBar;
+const Toolbar = (props: Props) => {
+  return (
+    <div className="toolbar">
+      <SubdomainBox {...props} />
+      <SearchBox {...props} />
+    </div>
+  );
+};
+
+export default Toolbar;

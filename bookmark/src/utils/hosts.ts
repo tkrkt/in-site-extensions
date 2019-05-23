@@ -1,4 +1,4 @@
-import { Hosts, Page } from "../reducers";
+import { Hosts, Page, Bookmark } from "../reducers";
 
 export const getSubdomainHostKeys = (hosts: Hosts, page: Page): string[] => {
   return Object.keys(hosts)
@@ -10,4 +10,14 @@ export const getSubdomainHostKeys = (hosts: Hosts, page: Page): string[] => {
       );
     })
     .sort();
+};
+
+export const matchesQuery = (bookmark: Bookmark, query: string): boolean => {
+  const trimmedQuery = query.trim().toLowerCase();
+  return (
+    !trimmedQuery ||
+    bookmark.url.toLowerCase().includes(trimmedQuery) ||
+    bookmark.path.toLowerCase().includes(trimmedQuery) ||
+    bookmark.title.toLowerCase().includes(trimmedQuery)
+  );
 };

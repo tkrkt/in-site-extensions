@@ -1,13 +1,20 @@
 import { Action } from "redux";
 import { isType } from "typescript-fsa";
-import { changeSubdomainVisibillity, pageChanged } from "../actions";
+import {
+  changeSubdomainVisibillity,
+  pageChanged,
+  clearQuery,
+  queryChanged
+} from "../actions";
 
 export interface PopupViewState {
   includesSubdomain: boolean;
+  query: string;
 }
 
 const initialState = {
-  includesSubdomain: false
+  includesSubdomain: false,
+  query: ""
 };
 
 export default (
@@ -18,6 +25,20 @@ export default (
     return {
       ...state,
       includesSubdomain: action.payload.visible
+    };
+  }
+
+  if (isType(action, queryChanged)) {
+    return {
+      ...state,
+      query: action.payload.query
+    };
+  }
+
+  if (isType(action, clearQuery)) {
+    return {
+      ...state,
+      query: ""
     };
   }
 
