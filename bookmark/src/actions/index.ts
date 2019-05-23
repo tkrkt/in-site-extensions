@@ -55,6 +55,7 @@ export const openBookmark = actionCreator<{
 }>("OPEN_BOOKMARK");
 
 export const pageChanged = actionCreator<{ page: Page }>("PAGE_CHANGED");
+export const popupLoaded = actionCreator<void>("POPUP_LOADED");
 
 export const changeSubdomainVisibillity = actionCreator<{ visible: boolean }>(
   "CHANGE_SUBDOMAIN_VISIBILLITY"

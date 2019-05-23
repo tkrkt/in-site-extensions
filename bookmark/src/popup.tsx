@@ -4,6 +4,7 @@ import { Store } from "react-chrome-redux";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import PopupContainer from "./containers/popup";
+import { popupLoaded } from "./actions";
 
 const extension: string = "/* @echo extension */";
 const proxyStore = new Store({
@@ -22,6 +23,7 @@ proxyStore
     );
   })
   .then(async () => {
+    proxyStore.dispatch(popupLoaded());
     if (extension === "chrome") {
       // dirty hack to fix drawings of popup window
       const appElement = document.getElementById("app");

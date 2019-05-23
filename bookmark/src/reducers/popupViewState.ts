@@ -4,7 +4,8 @@ import {
   changeSubdomainVisibillity,
   pageChanged,
   clearQuery,
-  queryChanged
+  queryChanged,
+  popupLoaded
 } from "../actions";
 
 export interface PopupViewState {
@@ -42,10 +43,10 @@ export default (
     };
   }
 
-  if (isType(action, pageChanged)) {
+  if (isType(action, popupLoaded)) {
     return {
-      ...initialState,
-      includesSubdomain: state.includesSubdomain
+      ...state,
+      query: ""
     };
   }
 
