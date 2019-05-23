@@ -1,3 +1,4 @@
+declare const process: any;
 import { wrapStore } from "react-chrome-redux";
 import { applyMiddleware, createStore } from "redux";
 import { createLogger } from "redux-logger";
@@ -10,9 +11,8 @@ import { AnyAction } from "typescript-fsa";
 
 const saga = createSagaMiddleware();
 
-const env: string = "/* @echo env */";
 let middlewares;
-if (env === "production") {
+if (process.env.NODE_ENV === "production") {
   middlewares = [saga];
 } else {
   const logger = createLogger();
@@ -24,7 +24,7 @@ const store = createStore<Store, AnyAction, any, any>(
   applyMiddleware(...middlewares)
 );
 
-if (env !== "production") {
+if (process.env.NODE_ENV !== "production") {
   (window as any).store = store;
 }
 
