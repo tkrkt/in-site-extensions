@@ -3,6 +3,7 @@ import { SortableContainer, SortEndHandler } from "react-sortable-hoc";
 import arrayMove from "array-move";
 import { Bookmark, Host, Page } from "../reducers";
 import BookmarkItem from "./bookmark";
+import { matchesQuery } from "../utils/hosts";
 
 interface InnerProps {
   host?: Host;
@@ -14,6 +15,7 @@ interface InnerProps {
   }) => void;
   onRemove: (arg: { host: Host; bookmark: Bookmark }) => void;
   isSubdomain: boolean;
+  query: string;
 }
 
 type Props = InnerProps & {
@@ -25,29 +27,34 @@ const BookmarkListSectionInner = SortableContainer<InnerProps>((({
   page,
   onSelect,
   onRemove,
-  isSubdomain
+  isSubdomain,
+  query
 }: InnerProps) => {
   if (!page.result || !host) {
     return null;
   }
   const currentUrl = page.result.bookmark.url;
-  const items = host.bookmarks.map((bookmark, index) => {
-    return (
-      <BookmarkItem
-        key={`item-${bookmark.url}-${bookmark.path}`}
-        host={host}
-        index={index}
-        collection={host.domain}
-        isCurrent={currentUrl === bookmark.url}
-        bookmark={bookmark}
-        onSelect={onSelect}
-        onRemove={onRemove}
-      />
-    );
-  });
+  const items = host.bookmarks
+    .filter(bookmark => {
+      return matchesQuery(bookmark, query);
+    })
+    .map((bookmark, index) => {
+      return (
+        <BookmarkItem
+          key={`item-${bookmark.url}-${bookmark.path}`}
+          host={host}
+          index={index}
+          collection={host.domain}
+          isCurrent={currentUrl === bookmark.url}
+          bookmark={bookmark}
+          onSelect={onSelect}
+          onRemove={onRemove}
+        />
+      );
+    });
 
   let divider;
-  if (isSubdomain) {
+  if (items.length && isSubdomain) {
     divider = <li className="bookmark-list__divider">{host.url}</li>;
   }
 

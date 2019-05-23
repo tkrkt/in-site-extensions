@@ -33,4 +33,4 @@ saga.run(mySaga);
 wrapStore(store, {
   portName: "in-site-bookmark"
 });
-store.dispatch(initialize({}));
+store.dispatch(initialize());

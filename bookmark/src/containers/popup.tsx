@@ -6,13 +6,15 @@ import {
   openBookmark,
   removeBookmark,
   sortBookmark,
-  changeSubdomainVisibillity
+  changeSubdomainVisibillity,
+  clearQuery,
+  queryChanged
 } from "../actions";
 import AppBar from "../components/appBar";
 import BookmarkList from "../components/bookmarkList";
 import { Host, Page, Store, PopupViewState, Hosts } from "../reducers";
-import { isValid, getDomainName } from "../utils/url";
-import ToolBar from "../components/toolBar";
+import { isValid } from "../utils/url";
+import Toolbar from "../components/toolbar";
 import { getSubdomainHostKeys } from "../utils/hosts";
 
 // props of redux state
@@ -30,6 +32,8 @@ interface DispatchProps {
   removeBookmark: typeof removeBookmark;
   sortBookmark: typeof sortBookmark;
   changeSubdomainVisibillity: typeof changeSubdomainVisibillity;
+  queryChanged: typeof queryChanged;
+  clearQuery: typeof clearQuery;
 }
 
 interface State {
@@ -47,7 +51,9 @@ const PopupContainer = (props: StateProps & DispatchProps) => {
     removeBookmark,
     sortBookmark,
     changeSubdomainVisibillity,
-    popupViewState: { includesSubdomain }
+    queryChanged,
+    clearQuery,
+    popupViewState: { includesSubdomain, query }
   } = props;
 
   let isAlreadyAdded = false;
@@ -87,6 +93,7 @@ const PopupContainer = (props: StateProps & DispatchProps) => {
             onSortEnd={sortBookmark}
             includesSubdomain={true}
             subdomainHosts={subdomainHosts}
+            query={query}
           />
         </div>
       );
@@ -109,6 +116,7 @@ const PopupContainer = (props: StateProps & DispatchProps) => {
             onSortEnd={sortBookmark}
             includesSubdomain={false}
             subdomainHosts={{}}
+            query={query}
           />
         </div>
       );
@@ -131,9 +139,12 @@ const PopupContainer = (props: StateProps & DispatchProps) => {
         isValidUrl={isValidUrl}
         onAdd={onAdd}
       />
-      <ToolBar
+      <Toolbar
         includesSubDomain={includesSubdomain}
         onSubdomainVisibillityChange={changeSubdomainVisibillity}
+        query={query}
+        onChange={queryChanged}
+        onClear={clearQuery}
       />
       {content}
     </div>
@@ -152,7 +163,9 @@ const mapDispatchToProps: DispatchProps = {
   openBookmark,
   removeBookmark,
   sortBookmark,
-  changeSubdomainVisibillity
+  changeSubdomainVisibillity,
+  queryChanged,
+  clearQuery
 };
 
 export default connect(

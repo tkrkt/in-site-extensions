@@ -25,6 +25,7 @@ body {
 .header {
   height: 36px;
   padding-left: 12px;
+  padding-right: 6px;
   display: flex;
   align-items: center;
   background-color: #09b2c7;
@@ -51,8 +52,9 @@ body {
 }
 
 .toolbar {
-  height: 24px;
+  height: 28px;
   padding-left: 12px;
+  padding-right: 6px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.02);
@@ -61,10 +63,48 @@ body {
 .subdomain {
   font-size: 12px;
   flex-grow: 1;
+  white-space: nowrap;
 }
 
 .subdomain__checkbox {
   margin-right: 4px;
+}
+
+.search {
+  position: relative;
+  flex-grow: 2;
+  margin-left: 16px;
+}
+
+.search__icon {
+  color: #ccc;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search__icon--search {
+  left: 4px;
+  pointer-events: none;
+}
+
+.search__icon--clear {
+  right: 4px;
+  cursor: pointer;
+  &:hover {
+    color: #888;
+  }
+  &:active {
+    color: #666;
+  }
+}
+
+.search__input {
+  width: 100%;
+  border-radius: 16px;
+  padding: 2px 28px;
+  font-size: 16px;
+  color: #333;
 }
 
 .hostname {

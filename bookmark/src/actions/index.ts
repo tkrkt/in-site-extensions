@@ -4,12 +4,12 @@ import { Bookmark, Host, Hosts, Page } from "../reducers";
 
 const actionCreator = actionCreatorFactory();
 
-export const nop = actionCreator<{}>("NOP");
+export const nop = actionCreator<void>("NOP");
 
-export const initialize = actionCreator<{}>("INITIALIZE");
+export const initialize = actionCreator<void>("INITIALIZE");
 export const setHosts = actionCreator<Hosts>("SET_HOSTS");
 
-export const exportHosts = actionCreator<{}>("EXPORT_HOSTS");
+export const exportHosts = actionCreator<void>("EXPORT_HOSTS");
 export const importHosts = actionCreator<{ hosts: Hosts }>("IMPORT_HOSTS");
 export const importHostsWorker = actionCreator<Action<{ hosts: Hosts }>>(
   "IMPORT_HOSTS_WORKER"
@@ -59,3 +59,6 @@ export const pageChanged = actionCreator<{ page: Page }>("PAGE_CHANGED");
 export const changeSubdomainVisibillity = actionCreator<{ visible: boolean }>(
   "CHANGE_SUBDOMAIN_VISIBILLITY"
 );
+
+export const clearQuery = actionCreator<void>("CLEAR_QUERY");
+export const queryChanged = actionCreator<{ query: string }>("QUERY_CHANGED");

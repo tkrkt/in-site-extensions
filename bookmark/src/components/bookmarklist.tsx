@@ -14,6 +14,7 @@ interface Props {
   onSortEnd: (arg: { host: Host; bookmarks: Bookmark[] }) => void;
   includesSubdomain: boolean;
   subdomainHosts: Hosts;
+  query: string;
 }
 
 const BookmarkList = (props: Props) => {
