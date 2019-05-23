@@ -1,7 +1,7 @@
 import throttle = require("lodash.throttle");
 import { browser, Tabs } from "webextension-polyfill-ts";
 import { Page } from "../reducers";
-import { getHostName, getPath } from "../utils/url";
+import { getHostName, getPath, getDomainName } from "../utils/url";
 
 const getCurrentTab = async (): Promise<Tabs.Tab> => {
   const tabs = await browser.tabs.query({
@@ -36,10 +36,12 @@ const watchTabChange = (handler: () => void): (() => void) => {
 export const getCurrentPage = async (): Promise<Page> => {
   const tab = await getCurrentTab();
   if (tab.url && tab.title && typeof tab.id === "number") {
+    const url = getHostName(tab.url);
     return {
       result: {
         host: {
-          url: getHostName(tab.url),
+          url,
+          domain: getDomainName(url),
           favicon: tab.favIconUrl || ""
         },
         bookmark: {
@@ -74,6 +76,7 @@ export const watchCurrentPage = (
     result: {
       host: {
         url: "",
+        domain: "",
         favicon: ""
       },
       bookmark: {

@@ -19,6 +19,7 @@ body {
   text-align: center;
   line-height: 45px;
   height: 45px;
+  background-color: #fff;
 }
 
 .header {
@@ -36,7 +37,7 @@ body {
   margin-right: 8px;
   vertical-align: middle;
   background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   box-sizing: content-box;
 }
 
@@ -54,6 +55,7 @@ body {
   padding-left: 12px;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .subdomain {
@@ -74,6 +76,13 @@ body {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+.bookmark-list__divider {
+  font-size: 12px;
+  padding: 4px 6px;
+  background-color: #08b2c7;
+  color: white;
 }
 
 .bookmark {

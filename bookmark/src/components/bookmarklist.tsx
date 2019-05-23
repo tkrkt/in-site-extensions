@@ -1,14 +1,9 @@
 import * as React from "react";
-import {
-  arrayMove,
-  SortableContainer,
-  SortEndHandler
-} from "react-sortable-hoc";
 import { Bookmark, Host, Page, Hosts } from "../reducers";
-import BookmarkItem from "./bookmark";
+import BookmarkListSection from "./bookmarkListSection";
 
 interface Props {
-  host: Host;
+  host?: Host;
   page: Page;
   onSelect: (arg: {
     host: Host;
@@ -21,66 +16,37 @@ interface Props {
   subdomainHosts: Hosts;
 }
 
-const SortableList = SortableContainer((({
-  host,
-  page,
-  onSelect,
-  onRemove,
-  includesSubdomain,
-  subdomainHosts
-}: Props) => {
-  if (page.result && (host && host.bookmarks.length)) {
-    const currentUrl = page.result.bookmark.url;
-    return (
-      <ul className="bookmark-list">
-        {host.bookmarks.map((bookmark, index) => {
-          return (
-            <BookmarkItem
-              key={`item-${index}`}
-              host={host}
-              index={index}
-              isCurrent={currentUrl === bookmark.url}
-              bookmark={bookmark}
-              onSelect={onSelect}
-              onRemove={onRemove}
-            />
-          );
-        })}
-      </ul>
-    );
-  }
-}) as any); // FIXME
-
-const shouldCancel = (e: any) => {
-  return !!(e.target && (e.target as Element).closest(".bookmark__control"));
-};
-
 const BookmarkList = (props: Props) => {
-  const { host, onSortEnd } = props;
+  const { host, onSortEnd, includesSubdomain, subdomainHosts } = props;
 
-  const sortEndHandler: SortEndHandler = React.useCallback(
-    ({ oldIndex, newIndex }) => {
-      if (host) {
-        onSortEnd({
-          host,
-          bookmarks: arrayMove(host.bookmarks, oldIndex, newIndex)
-        });
-      } else {
-        throw new Error(
-          "Unexpected operation! Bookmarks are sorted but host is undefined."
+  let subdomainLists;
+  if (includesSubdomain) {
+    subdomainLists = Object.keys(subdomainHosts)
+      .sort()
+      .map(key => {
+        const subdomainHost = subdomainHosts[key];
+        return (
+          <BookmarkListSection
+            key={`section-${subdomainHost.url}`}
+            {...props}
+            host={subdomainHost}
+            isSubdomain={true}
+            onSortEnd={onSortEnd}
+          />
         );
-      }
-    },
-    [host, onSortEnd]
-  );
+      });
+  }
 
   return (
-    <SortableList
-      {...props}
-      distance={4}
-      onSortEnd={sortEndHandler}
-      shouldCancelStart={shouldCancel}
-    />
+    <>
+      <BookmarkListSection
+        {...props}
+        host={host}
+        isSubdomain={false}
+        onSortEnd={onSortEnd}
+      />
+      {subdomainLists}
+    </>
   );
 };
 

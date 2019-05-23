@@ -9,10 +9,11 @@ import {
   changeSubdomainVisibillity
 } from "../actions";
 import AppBar from "../components/appBar";
-import BookmarkList from "../components/bookmarklist";
+import BookmarkList from "../components/bookmarkList";
 import { Host, Page, Store, PopupViewState, Hosts } from "../reducers";
 import { isValid, getDomainName } from "../utils/url";
 import ToolBar from "../components/toolBar";
+import { getSubdomainHostKeys } from "../utils/hosts";
 
 // props of redux state
 interface StateProps {
@@ -67,12 +68,8 @@ const PopupContainer = (props: StateProps & DispatchProps) => {
       </div>
     );
   } else if (includesSubdomain) {
-    const domain = getDomainName(page.result!.host.url);
-    const subdomainKeys = Object.keys(hosts).filter(key => {
-      return hosts[key].domain === domain && hosts[key].bookmarks.length > 0;
-    });
-
-    if (host && (host.bookmarks.length || subdomainKeys.length)) {
+    const subdomainKeys = getSubdomainHostKeys(hosts, page);
+    if ((host && host.bookmarks.length) || subdomainKeys.length) {
       const subdomainHosts = subdomainKeys.reduce(
         (acc, key) => {
           acc[key] = hosts[key];

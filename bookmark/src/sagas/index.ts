@@ -16,13 +16,15 @@ import {
   removeHostWorker,
   setHosts,
   sortBookmark,
-  sortBookmarkWorker
+  sortBookmarkWorker,
+  changeSubdomainVisibillity
 } from "../actions";
 import * as repogitory from "../apis/repogitory";
 import * as tab from "../apis/tab";
 import { Bookmark, Hosts, Page, Store } from "../reducers";
 import generateHtml from "../utils/generateHtml";
 import { getDomainName } from "../utils/url";
+import { getSubdomainHostKeys } from "../utils/hosts";
 
 function* initializeSaga() {
   yield fork(function*() {
@@ -114,17 +116,33 @@ function* changePageSaga(page: Page) {
 }
 
 function* updateBadgeSaga() {
-  const { hosts, page }: { hosts: Hosts; page: Page } = yield select(
+  const {
+    hosts,
+    page,
+    includesSubdomain
+  }: { hosts: Hosts; page: Page; includesSubdomain: boolean } = yield select(
     (state: Store) => ({
       hosts: state.hosts,
-      page: state.page
+      page: state.page,
+      includesSubdomain: state.popupViewState.includesSubdomain
     })
   );
   if (page.result) {
     const hostUrl = page.result.host.url;
+    let count = 0;
     if (hosts[hostUrl] && hosts[hostUrl].bookmarks.length) {
+      count += hosts[hostUrl].bookmarks.length;
+    }
+
+    if (includesSubdomain) {
+      getSubdomainHostKeys(hosts, page).forEach(key => {
+        count += hosts[key].bookmarks.length;
+      });
+    }
+
+    if (count > 0) {
       browser.browserAction.setBadgeText({
-        text: "" + hosts[hostUrl].bookmarks.length
+        text: "" + count
       });
     } else {
       browser.browserAction.setBadgeText({ text: "" });
@@ -191,6 +209,7 @@ export default function* saga(): SagaIterator {
   yield takeEvery(pageChanged as any, updateBadgeSaga);
   yield takeEvery(addBookmark as any, updateBadgeSaga);
   yield takeEvery(removeBookmark as any, updateBadgeSaga);
+  yield takeEvery(changeSubdomainVisibillity as any, updateBadgeSaga);
   yield takeEvery(sortBookmark as any, sortBookmarkSaga);
   yield takeEvery(exportHosts as any, exportHostsSaga);
   yield takeEvery(importHosts as any, importHostsSaga);

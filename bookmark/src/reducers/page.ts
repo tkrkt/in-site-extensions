@@ -7,6 +7,7 @@ export interface Page {
   result?: {
     host: {
       url: string;
+      domain: string;
       favicon: string;
     };
     bookmark: Bookmark;
