@@ -1,5 +1,5 @@
 import { Hosts } from "../reducers";
-import { getHostName, getPath, isValid } from "./url";
+import { getHostName, getPath, isValid, getDomainName } from "./url";
 
 const parseA = (aString: string) => {
   const href: string = (aString.match(/(href|HREF)="([^"]+)"/) || [])[2];
@@ -20,6 +20,7 @@ const parseHtml = (html: string): Hosts => {
         if (!hosts[hostname]) {
           hosts[hostname] = {
             url: hostname,
+            domain: getDomainName(hostname),
             favicon: a.favicon,
             bookmarks: []
           };
