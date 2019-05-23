@@ -1,11 +1,14 @@
 import { Action } from "redux";
 import { isType } from "typescript-fsa";
 import { pageChanged } from "../actions";
-import { Bookmark, Host } from "./hosts";
+import { Bookmark } from "./hosts";
 
 export interface Page {
   result?: {
-    host: Host;
+    host: {
+      url: string;
+      favicon: string;
+    };
     bookmark: Bookmark;
     tabId: number;
   };
@@ -16,7 +19,7 @@ const initialState = {
   error: "not initialized"
 };
 
-export default (state: Partial<Page> = initialState, action: Action) => {
+export default (state: Partial<Page> = initialState, action: Action): Page => {
   if (isType(action, pageChanged)) {
     return {
       ...action.payload.page

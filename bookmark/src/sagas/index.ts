@@ -22,6 +22,7 @@ import * as repogitory from "../apis/repogitory";
 import * as tab from "../apis/tab";
 import { Bookmark, Hosts, Page, Store } from "../reducers";
 import generateHtml from "../utils/generateHtml";
+import { getDomainName } from "../utils/url";
 
 function* initializeSaga() {
   yield fork(function*() {
@@ -45,6 +46,7 @@ const addBookmarkSaga = bindAsyncAction(addBookmarkWorker)(function*({
       : [];
     yield call(repogitory.setHost, {
       url: pageResult.host.url,
+      domain: getDomainName(pageResult.host.url),
       favicon: pageResult.host.favicon,
       bookmarks: [...bookmarks, pageResult.bookmark]
     });
@@ -164,6 +166,7 @@ function* importHostsSaga({
       });
       nextHosts[key] = {
         url: currentHost.url || loadHost.url,
+        domain: getDomainName(currentHost.url || loadHost.url),
         favicon: currentHost.favicon || loadHost.favicon,
         bookmarks
       };

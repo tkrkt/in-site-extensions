@@ -8,6 +8,7 @@ import {
   setHosts,
   sortBookmark
 } from "../actions";
+import { getDomainName } from "../utils/url";
 
 export interface Bookmark {
   title: string;
@@ -17,6 +18,7 @@ export interface Bookmark {
 
 export interface Host {
   url: string;
+  domain: string;
   favicon: string;
   bookmarks: Bookmark[];
 }
@@ -27,7 +29,7 @@ export interface Hosts {
 
 const initialState: Hosts = {};
 
-export default (state: Hosts = initialState, action: Action) => {
+export default (state: Hosts = initialState, action: Action): Hosts => {
   if (isType(action, setHosts)) {
     return {
       ...state,
@@ -50,6 +52,7 @@ export default (state: Hosts = initialState, action: Action) => {
         ...state,
         [page.host.url]: {
           url: page.host.url,
+          domain: getDomainName(page.host.url),
           favicon: page.host.favicon,
           bookmarks: [...currentBookmark, page.bookmark]
         }

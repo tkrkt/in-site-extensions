@@ -4,11 +4,11 @@ import {
   SortableContainer,
   SortEndHandler
 } from "react-sortable-hoc";
-import { Bookmark, Host, Page } from "../reducers";
+import { Bookmark, Host, Page, Hosts } from "../reducers";
 import BookmarkItem from "./bookmark";
 
 interface Props {
-  host?: Host;
+  host: Host;
   page: Page;
   onSelect: (arg: {
     host: Host;
@@ -17,13 +17,17 @@ interface Props {
   }) => void;
   onRemove: (arg: { host: Host; bookmark: Bookmark }) => void;
   onSortEnd: (arg: { host: Host; bookmarks: Bookmark[] }) => void;
+  includesSubdomain: boolean;
+  subdomainHosts: Hosts;
 }
 
 const SortableList = SortableContainer((({
   host,
   page,
   onSelect,
-  onRemove
+  onRemove,
+  includesSubdomain,
+  subdomainHosts
 }: Props) => {
   if (page.result && (host && host.bookmarks.length)) {
     const currentUrl = page.result.bookmark.url;

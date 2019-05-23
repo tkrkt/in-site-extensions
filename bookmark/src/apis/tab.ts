@@ -40,8 +40,7 @@ export const getCurrentPage = async (): Promise<Page> => {
       result: {
         host: {
           url: getHostName(tab.url),
-          favicon: tab.favIconUrl || "",
-          bookmarks: []
+          favicon: tab.favIconUrl || ""
         },
         bookmark: {
           title: tab.title || "Error",
@@ -75,8 +74,7 @@ export const watchCurrentPage = (
     result: {
       host: {
         url: "",
-        favicon: "",
-        bookmarks: []
+        favicon: ""
       },
       bookmark: {
         title: "",

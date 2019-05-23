@@ -2,7 +2,8 @@
 @import "modules/variables";
 @import "modules/layout";
 
-body, html {
+body,
+html {
   padding: 0;
   margin: 0;
   background-color: #eee;
@@ -25,7 +26,8 @@ body {
   padding-left: 12px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #00BCD4;
+  background-color: #09b2c7;
+  color: white;
 }
 
 .header__favicon {
@@ -33,6 +35,9 @@ body {
   height: 16px;
   margin-right: 8px;
   vertical-align: middle;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-sizing: content-box;
 }
 
 .header__button {
@@ -44,8 +49,24 @@ body {
   cursor: pointer;
 }
 
-.hostname {
+.toolbar {
+  height: 24px;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.subdomain {
   font-size: 12px;
+  flex-grow: 1;
+}
+
+.subdomain__checkbox {
+  margin-right: 4px;
+}
+
+.hostname {
+  font-size: 16px;
   flex-grow: 1;
 }
 
@@ -72,12 +93,12 @@ body {
     background-color: #f8f8f8;
   }
   &:hover {
-    background-color: #E0F7FA;
+    background-color: #e0f7fa;
   }
 }
 
 .bookmark_current {
-  color: #00838F;
+  color: #00838f;
 }
 
 .bookmark__title {
