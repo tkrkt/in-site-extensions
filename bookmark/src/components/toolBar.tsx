@@ -53,6 +53,8 @@ const SearchBox = ({ query, onChange, onClear }: SearchProps) => {
       <input
         className="search__input"
         placeholder="Find..."
+        spellCheck={false}
+        autoFocus={true}
         value={query}
         onChange={handleChange}
       />
