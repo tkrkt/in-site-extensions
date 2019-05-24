@@ -1,6 +1,6 @@
 declare const process: any;
 import { applyMiddleware, createStore, Middleware } from "redux";
-import { wrapStore } from "react-chrome-redux";
+import { wrapStore } from "webext-redux";
 import createSagaMiddleware from "redux-saga";
 import { createLogger } from "redux-logger";
 

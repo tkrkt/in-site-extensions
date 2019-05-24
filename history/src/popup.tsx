@@ -2,7 +2,7 @@ import "./styles/popup.scss";
 import throttle = require("lodash.throttle");
 import * as React from "react";
 import { render } from "react-dom";
-import { Store } from "react-chrome-redux";
+import { Store } from "webext-redux";
 import { Provider } from "react-redux";
 import { loadHistory, scrolledToBottom, popupLoaded } from "./actions";
 

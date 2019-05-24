@@ -3165,15 +3165,6 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-chrome-redux@^2.0.0-alpha.5:
-  version "2.0.0-alpha.5"
-  resolved "https://registry.yarnpkg.com/react-chrome-redux/-/react-chrome-redux-2.0.0-alpha.5.tgz#a955f533a9b4a495d87397249609df26686cd084"
-  integrity sha512-I7t19N+5idulXhWnDeKX206sYmt5f/KfvrCJ10NrzldPDlUTofRzUzrBEnrR4QO5HSQ7etQmQkRkg7tcH4Yfvw==
-  dependencies:
-    lodash.assignin "^4.2.0"
-    lodash.clonedeep "^4.5.0"
-    redux "^3.7.2"
-
 react-dom@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
@@ -4261,6 +4252,15 @@ watchpack@^1.5.0:
     chokidar "^2.0.2"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+
+webext-redux@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/webext-redux/-/webext-redux-2.1.0.tgz#06914bbe6877637213e87073d7f7c34824c74736"
+  integrity sha512-k9Sygvvs/aRYPhXnlTuP0WtCAsM48tF2WhmAM3WH1qaoZKXB1F9onZfe2k4M6tjFbu1iffjan3XyY8BrnMrbjQ==
+  dependencies:
+    lodash.assignin "^4.2.0"
+    lodash.clonedeep "^4.5.0"
+    redux "^3.7.2"
 
 webextension-polyfill-ts@^0.9.0:
   version "0.9.0"

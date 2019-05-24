@@ -39,7 +39,6 @@
     "lodash.throttle": "^4.1.1",
     "moment": "^2.24.0",
     "react": "^16.8.6",
-    "react-chrome-redux": "^2.0.0-alpha.5",
     "react-dom": "^16.8.6",
     "react-icons": "^3.7.0",
     "react-redux": "^7.0.3",
@@ -47,6 +46,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.2",
     "typescript-fsa": "^3.0.0-beta-2",
-    "typescript-fsa-redux-saga": "^2.0.0-beta.1"
+    "typescript-fsa-redux-saga": "^2.0.0-beta.1",
+    "webext-redux": "^2.1.0"
   }
 }

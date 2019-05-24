@@ -1,6 +1,6 @@
 import "./styles/popup.scss";
 import * as React from "react";
-import { Store } from "react-chrome-redux";
+import { Store } from "webext-redux";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import PopupContainer from "./containers/popup";
