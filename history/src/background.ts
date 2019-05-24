@@ -1,11 +1,11 @@
 declare const process: any;
-import { wrapStore } from "react-chrome-redux";
 import { applyMiddleware, createStore, Middleware } from "redux";
-import { createLogger } from "redux-logger";
+import { wrapStore } from "react-chrome-redux";
 import createSagaMiddleware from "redux-saga";
+import { createLogger } from "redux-logger";
 
-import { initialize } from "./actions";
 import rootReducer, { Store } from "./reducers";
+import { initialize } from "./actions";
 import mySaga from "./sagas";
 import { AnyAction } from "typescript-fsa";
 
@@ -18,7 +18,6 @@ if (process.env.NODE_ENV === "production") {
   const logger = createLogger();
   middlewares = [saga, logger];
 }
-
 const store = createStore<Store, AnyAction, any, any>(
   rootReducer,
   applyMiddleware(...middlewares)
@@ -31,6 +30,6 @@ if (process.env.NODE_ENV !== "production") {
 saga.run(mySaga);
 
 wrapStore(store, {
-  portName: "in-site-bookmark"
+  portName: "in-site-history"
 });
-store.dispatch(initialize());
+store.dispatch(initialize({}));

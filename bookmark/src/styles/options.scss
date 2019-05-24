@@ -9,7 +9,7 @@
 }
 
 .option__button {
-  border: 1px solid rgba(0, 0, 0, .2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 2px;
   padding: 8px 16px;
   margin-left: 8px;
@@ -18,16 +18,16 @@
     margin-left: 0;
   }
   &:hover {
-    background-color: rgba(0, 0, 0, .05);
+    background-color: rgba(0, 0, 0, 0.05);
   }
   &:active {
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }
 
 .bookmark-tree {
   background-color: white;
-  border: 1px solid rgba(0, 0, 0, .2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   height: 300px;
   overflow-x: hidden;
@@ -44,8 +44,9 @@
   }
 }
 
-.bookmark-tree__item:hover, .bookmark-tree__item.bookmark-tree__item_hover {
-  background-color: #E0F7FA;
+.bookmark-tree__item:hover,
+.bookmark-tree__item.bookmark-tree__item_hover {
+  background-color: #e0f7fa;
 }
 
 .bookmark-tree-host {
@@ -73,10 +74,9 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: rgba(0, 0, 0, .6);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 0.8em;
 }
-
 
 .bookmark-tree-button {
   position: absolute;

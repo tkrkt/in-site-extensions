@@ -2,7 +2,8 @@
 @import "modules/variables";
 @import "modules/layout";
 
-body, html {
+body,
+html {
   padding: 0;
   margin: 0;
   background-color: #eee;
@@ -25,7 +26,7 @@ body {
   padding-left: 12px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #6CBC13;
+  border-bottom: 1px solid #6cbc13;
 }
 
 .header__favicon {
@@ -96,8 +97,12 @@ body {
 }
 
 @keyframes spin {
-	0% {transform: rotate(0deg);}
-	100% {transform: rotate(360deg);}
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .history--loader {
