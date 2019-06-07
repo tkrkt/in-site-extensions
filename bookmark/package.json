@@ -39,6 +39,7 @@
     "array-move": "^2.1.0",
     "lodash.throttle": "^4.1.1",
     "react": "^16.8.6",
+    "react-composition-input": "^1.1.1",
     "react-dom": "^16.8.6",
     "react-icons": "^3.7.0",
     "react-redux": "^7.0.3",

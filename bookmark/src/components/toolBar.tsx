@@ -1,4 +1,5 @@
 import * as React from "react";
+import CompositionInput from "react-composition-input";
 import { MdSearch as SearchIcon, MdCancel as ClearIcon } from "react-icons/md";
 
 interface SubdomainBoxProps {
@@ -50,13 +51,13 @@ const SearchBox = ({ query, onChange, onClear }: SearchProps) => {
   return (
     <div className="search">
       <SearchIcon className="search__icon search__icon--search" size="20" />
-      <input
+      <CompositionInput
         className="search__input"
         placeholder="Find..."
         spellCheck={false}
         autoFocus={true}
         value={query}
-        onChange={handleChange}
+        onInputChange={handleChange}
       />
       <ClearIcon
         className="search__icon search__icon--clear"
