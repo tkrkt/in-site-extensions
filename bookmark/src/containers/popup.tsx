@@ -130,6 +130,7 @@ const PopupContainer = (props: StateProps & DispatchProps) => {
   }
 
   const onAdd = () => addBookmark({ page });
+  const onClear = () => clearQuery();
 
   return (
     <div className="popup">
@@ -144,7 +145,7 @@ const PopupContainer = (props: StateProps & DispatchProps) => {
         onSubdomainVisibillityChange={changeSubdomainVisibillity}
         query={query}
         onChange={queryChanged}
-        onClear={clearQuery}
+        onClear={onClear}
       />
       {content}
     </div>

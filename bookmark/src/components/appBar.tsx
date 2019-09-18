@@ -1,5 +1,6 @@
 import * as React from "react";
-import { MdAddCircle as AddIcon, MdDone as DoneIcon } from "react-icons/md";
+import { MdAddCircle as AddIcon } from "react-icons/md";
+import { MdDone as DoneIcon } from "react-icons/md";
 import { Page } from "../reducers";
 import Favicon from "./favicon";
 

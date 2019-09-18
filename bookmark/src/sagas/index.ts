@@ -1,6 +1,16 @@
 import { browser } from "webextension-polyfill-ts";
 import { eventChannel, SagaIterator } from "redux-saga";
-import { call, fork, put, select, take, takeEvery } from "redux-saga/effects";
+import {
+  call,
+  fork,
+  put,
+  select,
+  take,
+  takeEvery,
+  StrictEffect,
+  CallEffect,
+  SelectEffect
+} from "redux-saga/effects";
 import { bindAsyncAction } from "typescript-fsa-redux-saga";
 import {
   addBookmark,
@@ -38,7 +48,7 @@ function* initializeSaga() {
 
 const addBookmarkSaga = bindAsyncAction(addBookmarkWorker)(function*({
   payload: { page }
-}): SagaIterator {
+}): any {
   const hosts: Hosts = yield select((state: Store) => state.hosts);
   const pageResult = page.result;
   if (pageResult) {
@@ -59,7 +69,7 @@ const addBookmarkSaga = bindAsyncAction(addBookmarkWorker)(function*({
 
 const removeBookmarkSaga = bindAsyncAction(removeBookmarkWorker)(function*({
   payload: { host, bookmark }
-}): SagaIterator {
+}): any {
   const bookmarks = host.bookmarks.filter(b => b.url !== bookmark.url);
   if (bookmarks.length) {
     yield call(repogitory.setHost, {
@@ -73,7 +83,7 @@ const removeBookmarkSaga = bindAsyncAction(removeBookmarkWorker)(function*({
 
 const sortBookmarkSaga = bindAsyncAction(sortBookmarkWorker)(function*({
   payload: { host, bookmarks }
-}): SagaIterator {
+}): IterableIterator<StrictEffect<any>> {
   yield call(repogitory.setHost, {
     ...host,
     bookmarks
@@ -82,7 +92,7 @@ const sortBookmarkSaga = bindAsyncAction(sortBookmarkWorker)(function*({
 
 const removeHostSaga = bindAsyncAction(removeHostWorker)(function*({
   payload: { host }
-}): SagaIterator {
+}): any {
   yield call(repogitory.removeHost, host.url);
 });
 

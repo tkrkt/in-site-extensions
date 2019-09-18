@@ -1,8 +1,6 @@
 import * as React from "react";
-import {
-  MdKeyboardArrowDown as ExpandedIcon,
-  MdKeyboardArrowRight as CollapsedIcon
-} from "react-icons/md";
+import { MdKeyboardArrowDown as ExpandedIcon } from "react-icons/md";
+import { MdKeyboardArrowRight as CollapsedIcon } from "react-icons/md";
 import { Bookmark, Host } from "../reducers";
 import BookmarkTreeButton from "./bookmarktreebotton";
 import Favicon from "./favicon";

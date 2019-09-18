@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Bookmark, Host, Hosts } from "../reducers";
-
 import BookmarkTreeHost from "./bookmarktreehost";
 
 interface Props {

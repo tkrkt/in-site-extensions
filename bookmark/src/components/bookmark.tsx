@@ -1,8 +1,6 @@
 import * as React from "react";
-import {
-  MdDelete as DeleteIcon,
-  MdOpenInNew as OpenInNewIcon
-} from "react-icons/md";
+import { MdDelete as DeleteIcon } from "react-icons/md";
+import { MdOpenInNew as OpenInNewIcon } from "react-icons/md";
 import { SortableElement } from "react-sortable-hoc";
 
 import { Bookmark, Host } from "../reducers";
