@@ -1,6 +1,6 @@
 {
   "name": "in-site-bookmark",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "build": "webpack",
     "dist": "cross-env NODE_ENV=\"production\" webpack --mode production",
