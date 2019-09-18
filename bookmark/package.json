@@ -7,7 +7,7 @@
     "watch": "webpack --watch",
     "lint": "tslint -c tslint.json 'src/**/*.ts{,x}'",
     "fix": "tslint -c tslint.json 'src/**/*.ts{,x}' --fix",
-    "zip": "zip -r ./extension.zip dist *.html manifest.json icon-128.png _locales"
+    "zip": "zip -r ./extension.zip dist *.html manifest.json *.png _locales"
   },
   "resolutions": {
     "@types/react": "^16.9.2"
