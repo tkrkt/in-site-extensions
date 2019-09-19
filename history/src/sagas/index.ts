@@ -12,9 +12,10 @@ import {
   historyLoaded,
   loadHistory,
   loadMoreHistory,
-  scrolledToBottom
+  scrolledToBottom,
+  changeSubdomainVisibillity
 } from "../actions";
-import { isValid } from "../utils/url";
+import { isValid, getDomainName } from "../utils/url";
 
 const delay = (millis: number) => new Promise(r => setTimeout(r, millis));
 
@@ -69,9 +70,22 @@ function* getHistorySaga({ payload: { page } }: { payload: { page: Page } }) {
 }
 
 function* getCurrentHistorySaga() {
-  const page: Page | undefined = yield select((state: Store) => state.page);
+  const {
+    page,
+    includesSubdomain
+  }: {
+    page: Page | undefined;
+    includesSubdomain: boolean;
+  } = yield select((state: Store) => ({
+    page: state.page,
+    includesSubdomain: state.popupViewState.includesSubdomain
+  }));
   if (page && page.result) {
-    const histories = yield call(historyApi.getHistory, page.result.host);
+    let host = page.result.host;
+    if (includesSubdomain) {
+      host = getDomainName(host);
+    }
+    const histories = yield call(historyApi.getHistory, host);
     yield put(historyLoaded({ histories }));
   }
 }
@@ -105,5 +119,6 @@ export default function* saga(): SagaIterator {
   yield takeEvery(pageChanged as any, getHistorySaga);
   yield takeEvery(loadHistory as any, getCurrentHistorySaga);
   yield takeEvery(loadMoreHistory as any, getMoreHistorySaga);
+  yield takeEvery(changeSubdomainVisibillity as any, getCurrentHistorySaga);
   yield takeEvery(scrolledToBottom as any, scrolledToBottomSaga);
 }

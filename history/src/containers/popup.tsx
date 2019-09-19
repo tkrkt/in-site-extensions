@@ -10,7 +10,7 @@ import {
   removeAllHistories,
   changeSubdomainVisibillity
 } from "../actions";
-import { isValid } from "../utils/url";
+import { isValid, getDomainName } from "../utils/url";
 import Toolbar from "../components/tollbar";
 import popupViewState from "../reducers/popupViewState";
 
@@ -29,8 +29,20 @@ interface DispatchProps {
   changeSubdomainVisibillity: typeof changeSubdomainVisibillity;
 }
 
-const isValidPageHistoryPair = (p: Page, h: Histories) => {
-  return p && p.result && h && p.result.host === h.host;
+const isValidPageHistoryPair = (
+  p: Page,
+  h: Histories,
+  includesSubdomain: boolean
+) => {
+  if (p && p.result && p.result.host && h && h.host) {
+    if (includesSubdomain) {
+      return getDomainName(p.result.host) === getDomainName(h.host);
+    } else {
+      return p.result.host === h.host;
+    }
+  } else {
+    return false;
+  }
 };
 
 const PopupContainer = (props: StateProps & DispatchProps) => {
@@ -54,7 +66,7 @@ const PopupContainer = (props: StateProps & DispatchProps) => {
       </div>
     );
   } else if (
-    isValidPageHistoryPair(page, histories) &&
+    isValidPageHistoryPair(page, histories, includesSubdomain) &&
     histories.items.length
   ) {
     content = (
