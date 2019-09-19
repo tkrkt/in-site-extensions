@@ -1,4 +1,4 @@
-import throttle = require("lodash.throttle");
+import throttle from "lodash.throttle";
 import { browser, Tabs } from "webextension-polyfill-ts";
 import { Page } from "../reducers";
 import { getHostName } from "../utils/url";

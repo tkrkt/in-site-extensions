@@ -2,10 +2,12 @@
   "compilerOptions": {
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "commonjs",
+    "module": "es6",
     "target": "es6",
     "jsx": "react",
     "experimentalDecorators": true,
-    "strictNullChecks": true
+    "strict": true,
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true
   }
 }

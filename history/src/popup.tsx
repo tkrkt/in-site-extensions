@@ -1,5 +1,5 @@
 import "./styles/popup.scss";
-import throttle = require("lodash.throttle");
+import throttle from "lodash.throttle";
 import * as React from "react";
 import { render } from "react-dom";
 import { Store } from "webext-redux";
