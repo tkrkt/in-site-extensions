@@ -51,7 +51,7 @@ const searchHistory = async ({
     items,
     paths,
     endTime: nextEndTime - 1,
-    completed: endTime === nextEndTime
+    completed: historyNodes.length < maxResults
   };
 };
 
