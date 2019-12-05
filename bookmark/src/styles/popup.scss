@@ -42,12 +42,21 @@ body {
   box-sizing: content-box;
 }
 
+.header__icon {
+  color: white;
+}
+
 .header__button {
   vertical-align: middle;
 }
 
 .header__button--add {
   cursor: pointer;
+}
+
+.hostname {
+  font-size: 16px;
+  flex-grow: 1;
 }
 
 .toolbar {
@@ -104,11 +113,6 @@ body {
   padding: 2px 28px;
   font-size: 16px;
   color: #333;
-}
-
-.hostname {
-  font-size: 16px;
-  flex-grow: 1;
 }
 
 .bookmark-list {

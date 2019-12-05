@@ -21,7 +21,7 @@ const AppBar = ({ page, isValidUrl, isAlreadyAdded, onAdd }: Props) => {
             className="header__button header__button--added"
             title="Already added"
           >
-            <DoneIcon size={28} color="white" />
+            <DoneIcon className={"header__icon"} size={28} />
           </button>
         ),
         [isValidUrl, isAlreadyAdded]
@@ -34,7 +34,7 @@ const AppBar = ({ page, isValidUrl, isAlreadyAdded, onAdd }: Props) => {
             title="Add current page to bookmark"
             onClick={onAdd}
           >
-            <AddIcon size={28} color="white" />
+            <AddIcon className={"header__icon"} size={28} />
           </button>
         ),
         [isValidUrl, isAlreadyAdded]

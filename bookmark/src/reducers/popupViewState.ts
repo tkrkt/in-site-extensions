@@ -2,7 +2,6 @@ import { Action } from "redux";
 import { isType } from "typescript-fsa";
 import {
   changeSubdomainVisibillity,
-  pageChanged,
   clearQuery,
   queryChanged,
   popupLoaded

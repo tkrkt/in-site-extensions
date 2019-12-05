@@ -19,14 +19,17 @@ body {
   text-align: center;
   line-height: 45px;
   height: 45px;
+  background-color: #fff;
 }
 
 .header {
   height: 36px;
   padding-left: 12px;
+  padding-right: 6px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #6cbc13;
+  background-color: 1px solid #6cbc13;
+  color: white;
 }
 
 .header__favicon {
@@ -34,6 +37,13 @@ body {
   height: 16px;
   margin-right: 8px;
   vertical-align: middle;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-sizing: content-box;
+}
+
+.header__icon {
+  color: white;
 }
 
 .header__button {
@@ -45,14 +55,6 @@ body {
   width: 28px;
   height: 28px;
 }
-
-// cannot use this in Firefox
-// .header__button path {
-//   color: #7ed322;
-//   &:hover {
-//     color: #f44336;
-//   }
-// }
 
 .header__buttonitem {
   position: absolute;
@@ -67,6 +69,25 @@ body {
 .hostname {
   font-size: 12px;
   flex-grow: 1;
+}
+
+.toolbar {
+  height: 28px;
+  padding-left: 12px;
+  padding-right: 6px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.subdomain {
+  font-size: 12px;
+  flex-grow: 1;
+  white-space: nowrap;
+}
+
+.subdomain__checkbox {
+  margin-right: 4px;
 }
 
 .history-list {

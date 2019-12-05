@@ -20,10 +20,10 @@ const AppBarItem = ({ page, isValidUrl, onRemoveAll }: Props) => {
         onClick={onRemoveAll}
       >
         <span className={"header__buttonitem"}>
-          <DeleteIcon size={28} color={"#f44336"} />
+          <DeleteIcon className={"header__icon"} size={28} />
         </span>
         <span className={"header__buttonitem header__buttonitem--cover"}>
-          <DeleteIcon size={28} color={"#6CBC13"} />
+          <DeleteIcon className={"header__icon"} size={28} />
         </span>
       </button>
     );
