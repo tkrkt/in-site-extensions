@@ -1,5 +1,4 @@
-import { Hosts } from "../reducers";
-import { getHostName, getPath, isValid, getDomainName } from "./url";
+import { Bookmark, getHostName, getPath, isValid } from "./url";
 
 const parseA = (aString: string) => {
   const href: string = (aString.match(/(href|HREF)="([^"]+)"/) || [])[2];
@@ -9,31 +8,30 @@ const parseA = (aString: string) => {
   return { href, title, favicon };
 };
 
-const parseHtml = (html: string): Hosts => {
-  const hosts: Hosts = {};
+const parseHtml = (html: string): { [hostUrl: string]: Bookmark[] } => {
+  const bookmarks: {
+    [hostUrl: string]: Bookmark[];
+  } = {};
+
   const group = html.match(/<[aA][^<]+<\/[aA]>/g);
   if (group && group.length) {
-    group.forEach(aTag => {
+    group.forEach((aTag) => {
       const a = parseA(aTag);
       if (a.href && isValid(a.href)) {
         const hostname = getHostName(a.href);
-        if (!hosts[hostname]) {
-          hosts[hostname] = {
-            url: hostname,
-            domain: getDomainName(hostname),
-            favicon: a.favicon,
-            bookmarks: []
-          };
+        if (!bookmarks[hostname]) {
+          bookmarks[hostname] = [];
         }
-        hosts[hostname].bookmarks.push({
+        bookmarks[hostname].push({
           title: a.title,
           url: a.href,
-          path: getPath(a.href)
+          path: getPath(a.href),
         });
       }
     });
   }
-  return hosts;
+
+  return bookmarks;
 };
 
 export default parseHtml;

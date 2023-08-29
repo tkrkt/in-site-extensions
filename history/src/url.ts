@@ -2,17 +2,21 @@ export interface Bookmark {
   title: string;
   url: string;
   path: string;
-  isBrowserBookmark?: boolean;
 }
 
 export interface Host {
   url: string;
   favicon: string;
+  bookmarks: Bookmark[];
 }
 
 export interface PageState {
-  host: Host;
+  host: Omit<Host, "bookmarks">;
   bookmark: Bookmark;
+}
+
+export interface Hosts {
+  [host: string]: Host;
 }
 
 export const getPageStateFromTab = (tab: chrome.tabs.Tab) => {

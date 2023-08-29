@@ -1,0 +1,66 @@
+.ListItem-root {
+  position: relative;
+  display: block;
+  padding: 4px 6px;
+  cursor: pointer;
+  background-color: #ffffff;
+  user-select: none;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ListItem-root:last-child {
+  border-bottom: none;
+}
+
+.ListItem-root:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.ListItem-root:hover {
+  background-color: #e0f7fa;
+}
+
+.ListItem-title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.ListItem-url {
+  font-size: 10px;
+  color: #777;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ListItem-controls {
+  display: none;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  flex-direction: row;
+}
+.ListItem-root:hover .ListItem-controls {
+  display: flex;
+}
+
+.ListItem-control {
+  width: 50px;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ListItem-control-edit:hover {
+  background-color: rgba(225, 255, 0, 0.3);
+}
+
+.ListItem-control-open:hover {
+  background-color: rgba(0, 200, 255, 0.3);
+}
+
+.ListItem-control-delete:hover {
+  background-color: rgba(255, 0, 0, 0.3);
+}
